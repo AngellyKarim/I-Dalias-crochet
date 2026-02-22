@@ -4,9 +4,7 @@
 
 const WHATSAPP_NUMBER = "51994098296";
 
-const MENSAJE_BASE =
-  "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:";
-
+const MENSAJE_BASE = "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:";
 
 // ================================
 // LISTA DE PRODUCTOS
@@ -55,7 +53,6 @@ const productos = [
   }
 ];
 
-
 // ================================
 // REFERENCIAS DOM
 // ================================
@@ -67,24 +64,19 @@ const whatsappFijo = document.getElementById("whatsapp-fijo");
 const ctaWhatsapp = document.getElementById("cta-whatsapp");
 const contactoWhatsapp = document.getElementById("contacto-whatsapp");
 
-
 // ================================
-// CREAR LINK WHATSAPP
+// FUNCIONES
 // ================================
 
+// Genera link de WhatsApp para cada producto
 function crearLinkWhatsApp(producto) {
   const mensaje = `${MENSAJE_BASE} ${producto.nombre} (S/ ${producto.precio})`;
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
 }
 
-
-// ================================
-// RENDER DE PRODUCTOS
-// ================================
-
+// Render de productos dinámico
 function renderProductos(lista) {
   if (!contenedor) return;
-
   contenedor.innerHTML = "";
 
   lista.forEach(producto => {
@@ -109,64 +101,39 @@ function renderProductos(lista) {
   activarAnimaciones();
 }
 
-
-// ================================
-// FILTROS
-// ================================
-
+// Filtrado de productos por categoría
 botonesFiltro.forEach(boton => {
   boton.addEventListener("click", () => {
-
     botonesFiltro.forEach(btn => btn.classList.remove("activo"));
     boton.classList.add("activo");
 
     const categoria = boton.dataset.categoria;
-
     if (categoria === "todos") {
       renderProductos(productos);
       return;
     }
 
-    const filtrados = productos.filter(
-      producto => producto.categoria === categoria
-    );
-
+    const filtrados = productos.filter(producto => producto.categoria === categoria);
     renderProductos(filtrados);
   });
 });
 
-
-// ================================
-// SCROLL SUAVE
-// ================================
-
+// Scroll suave al presionar "Ver colección"
 if (btnVer) {
   btnVer.addEventListener("click", () => {
-    document.getElementById("productos")
-      .scrollIntoView({ behavior: "smooth" });
+    document.getElementById("productos").scrollIntoView({ behavior: "smooth" });
   });
 }
 
-
-// ================================
-// LINKS GENERALES WHATSAPP
-// ================================
-
-const mensajeGeneral =
-  "Hola 😊 quiero información sobre las carteras de I'Dalias";
-
-const linkGeneral =
-  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensajeGeneral)}`;
+// Configura botones de WhatsApp general
+const mensajeGeneral = "Hola 😊 quiero información sobre las carteras de I'Dalias";
+const linkGeneral = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensajeGeneral)}`;
 
 if (whatsappFijo) whatsappFijo.href = linkGeneral;
 if (ctaWhatsapp) ctaWhatsapp.href = linkGeneral;
 if (contactoWhatsapp) contactoWhatsapp.href = linkGeneral;
 
-
-// ================================
-// ANIMACIÓN APARICIÓN PRODUCTOS
-// ================================
-
+// Animación de aparición de productos
 function activarAnimaciones() {
   const cards = document.querySelectorAll(".producto-card");
 
@@ -181,13 +148,8 @@ function activarAnimaciones() {
   cards.forEach(card => observer.observe(card));
 }
 
-
-// ================================
-// EFECTO HEADER SCROLL
-// ================================
-
+// Cambio de estilo de header al hacer scroll
 const header = document.querySelector(".header");
-
 window.addEventListener("scroll", () => {
   if (window.scrollY > 50) {
     header.classList.add("header-scroll");
@@ -196,11 +158,36 @@ window.addEventListener("scroll", () => {
   }
 });
 
-
 // ================================
-// INICIALIZAR
+// INICIALIZACIÓN
 // ================================
-
 document.addEventListener("DOMContentLoaded", () => {
   renderProductos(productos);
 });
+
+
+---
+
+✅ Características de este script:
+
+Renderiza productos de manera dinámica desde un array de JS.
+
+Filtrado funcional por categorías "Clásicas" y "Coloridas".
+
+Scroll suave al botón “Ver colección”.
+
+Todos los botones de WhatsApp funcionan (flotante, CTA y contacto).
+
+Animación de aparición con IntersectionObserver.
+
+Header cambia al hacer scroll para efecto sticky elegante.
+
+Escalable para añadir más productos, categorías o animaciones.
+
+
+
+---
+
+Si quieres, puedo hacer la versión final completa “PRO”, donde el CSS y JS tengan hover, sombras, microinteracciones y efectos premium para que la web luzca como tienda de marca premium lista para vender.
+
+¿Quieres que haga eso ahora?
