@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>I'Dalias | Tienda Oficial</title>
+<link rel="stylesheet" href="estilos.css">
+</head>
+
+<body>
+
+<header class="header">
+    <h1>I'Dalias</h1>
+    <nav>
+        <a href="#">Inicio</a>
+        <a href="#catalogo">Catálogo</a>
+        <a href="https://wa.me/qr/XIM3U3CSOZ3BP1" target="_blank">Contacto</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div>
+        <h2>Carteras tejidas a mano</h2>
+        <p>Diseños exclusivos hechos con amor 🧶</p>
+        <a class="btn" href="#catalogo">Ver colección</a>
+    </div>
+</section>
+
+<section id="catalogo" class="catalogo">
+    <h2>Nuestra colección</h2>
+
+    <div class="filtros">
+        <button onclick="filtrar('todos')">Todos</button>
+        <button onclick="filtrar('clasica')">Clásicas</button>
+        <button onclick="filtrar('colorida')">Coloridas</button>
+    </div>
+
+    <div id="productos" class="grid"></div>
+</section>
+
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span class="cerrar" onclick="cerrarModal()">×</span>
+        <img id="modal-img">
+        <h3 id="modal-nombre"></h3>
+        <p id="modal-precio"></p>
+        <a class="btn" href="https://wa.me/qr/XIM3U3CSOZ3BP1" target="_blank">
+            Comprar por WhatsApp
+        </a>
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 I'Dalias | Hecho a mano con amor</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
