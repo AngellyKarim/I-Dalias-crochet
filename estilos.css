@@ -1,143 +1,327 @@
-/* ===== RESET ===== */
+/* ======================================================
+   VARIABLES Y RESET
+   ====================================================== */
+
+:root {
+  --color-primario: #0d1b2a;
+  --color-secundario: #1b263b;
+  --color-acento: #e0a800;
+  --color-texto: #333;
+  --color-blanco: #ffffff;
+  --color-gris: #f5f5f5;
+
+  --transicion: 0.3s ease;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: #faf8f6;
-  color: #333;
-  line-height: 1.5;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--color-texto);
+  background: var(--color-blanco);
+  line-height: 1.6;
 }
 
-/* ===== HEADER ===== */
+
+/* ======================================================
+   HEADER
+   ====================================================== */
+
 header {
-  text-align: center;
-  padding: 40px 20px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: transparent;
+  transition: var(--transicion);
+  z-index: 1000;
 }
 
-.logo {
-  font-size: 2.5rem;
-  font-weight: 600;
-  letter-spacing: 1px;
+header.scrolled {
+  background: var(--color-blanco);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.slogan {
-  color: #777;
-  margin-top: 5px;
-}
-
-/* ===== FILTROS ===== */
-.filtros {
+.nav-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 15px 20px;
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 30px 0;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.filtro-btn {
-  border: none;
-  padding: 10px 18px;
-  background: #eee;
-  border-radius: 25px;
+#logo {
+  height: 50px;
+  transition: var(--transicion);
+}
+
+
+/* ======================================================
+   NAV
+   ====================================================== */
+
+#nav-menu {
+  display: flex;
+  gap: 25px;
+}
+
+#nav-menu a {
+  text-decoration: none;
+  color: var(--color-blanco);
+  font-weight: 600;
+  transition: var(--transicion);
+}
+
+header.scrolled #nav-menu a {
+  color: var(--color-texto);
+}
+
+#nav-menu a:hover {
+  color: var(--color-acento);
+}
+
+#menu-toggle {
+  display: none;
+  font-size: 28px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.filtro-btn:hover {
-  background: #e7d8d0;
+
+/* ======================================================
+   HERO
+   ====================================================== */
+
+.hero {
+  height: 100vh;
+  background: url("img/hero.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-blanco);
+  padding: 20px;
 }
 
-/* ===== GRID PRODUCTOS ===== */
-.grid-productos {
+.hero-content {
+  max-width: 700px;
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.hero p {
+  margin-bottom: 25px;
+  font-size: 1.2rem;
+}
+
+
+/* ======================================================
+   BOTONES
+   ====================================================== */
+
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  background: var(--color-acento);
+  color: #000;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: var(--transicion);
+}
+
+.btn:hover {
+  background: #c99700;
+}
+
+
+/* ======================================================
+   SECCIONES
+   ====================================================== */
+
+section {
+  padding: 80px 20px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-title h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.section-title p {
+  color: #666;
+}
+
+
+/* ======================================================
+   SERVICIOS
+   ====================================================== */
+
+.services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 30px;
-  padding: 20px 40px 60px;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 25px;
 }
 
-/* ===== CARD ===== */
-.producto-card {
-  background: #fff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.05);
-  transition: 0.3s;
+.service-card {
+  background: var(--color-gris);
+  padding: 25px;
+  border-radius: 8px;
+  transition: var(--transicion);
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+}
+
+.service-card h3 {
+  margin-bottom: 10px;
+}
+
+
+/* ======================================================
+   FORMULARIO
+   ====================================================== */
+
+form {
+  max-width: 600px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+input,
+textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+textarea {
+  resize: none;
+  min-height: 120px;
+}
+
+button {
+  border: none;
+  cursor: pointer;
+}
+
+
+/* ======================================================
+   FOOTER
+   ====================================================== */
+
+footer {
+  background: var(--color-primario);
+  color: var(--color-blanco);
+  text-align: center;
+  padding: 25px 20px;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
+
+/* ======================================================
+   BOTÓN VOLVER ARRIBA
+   ====================================================== */
+
+#back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background: var(--color-acento);
+  color: #000;
+  border: none;
+  padding: 12px 15px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transicion);
+}
+
+#back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+/* ======================================================
+   ANIMACIONES
+   ====================================================== */
+
+.animate {
   opacity: 0;
   transform: translateY(30px);
+  transition: 0.6s ease;
 }
 
-.producto-card.visible {
+.animate.show {
   opacity: 1;
   transform: translateY(0);
 }
 
-.producto-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-}
 
-.producto-card img {
-  width: 100%;
-  height: 260px;
-  object-fit: cover;
-}
+/* ======================================================
+   RESPONSIVE
+   ====================================================== */
 
-.producto-card h3 {
-  font-size: 1.2rem;
-  margin: 15px 15px 5px;
-}
-
-.descripcion {
-  font-size: 0.9rem;
-  color: #777;
-  margin: 0 15px 10px;
-}
-
-.precio {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0 15px 15px;
-}
-
-/* ===== BOTÓN ===== */
-.btn-comprar {
-  display: block;
-  width: calc(100% - 30px);
-  margin: 0 15px 20px;
-  padding: 10px;
-  border: none;
-  background: #d9a7a7;
-  color: #fff;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.btn-comprar:hover {
-  background: #c48f8f;
-}
-
-/* ===== FOOTER ===== */
-footer {
-  text-align: center;
-  padding: 30px 20px;
-  background: #fff;
-  border-top: 1px solid #eee;
-  font-size: 0.9rem;
-  color: #777;
-}
-
-/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-  .grid-productos {
-    padding: 20px;
-    gap: 20px;
+
+  #menu-toggle {
+    display: block;
   }
 
-  .logo {
+  #nav-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: var(--color-blanco);
+    flex-direction: column;
+    width: 200px;
+    padding: 20px;
+    transform: translateX(100%);
+    transition: var(--transicion);
+    box-shadow: -2px 5px 10px rgba(0,0,0,0.1);
+  }
+
+  #nav-menu a {
+    color: var(--color-texto);
+  }
+
+  #nav-menu.active {
+    transform: translateX(0);
+  }
+
+  .hero h1 {
     font-size: 2rem;
   }
+
 }
