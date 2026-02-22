@@ -1,127 +1,197 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+/* =====================================================
+   SCRIPT PRINCIPAL — WEB SERVICIO EJECUTIVO
+   Autor: configuración completa
+   ===================================================== */
 
-  <title>I’Dalias | Carteras Tejidas a Mano</title>
-  <meta name="description" content="Carteras tejidas a mano en Perú. Diseños únicos, elegantes y artesanales.">
+/* =========================
+   1️⃣ MENÚ RESPONSIVE
+   ========================= */
 
-  <!-- Favicon -->
-  <link rel="icon" href="idalias-icono.jpg">
+const menuToggle = document.querySelector("#menu-toggle");
+const navMenu = document.querySelector("#nav-menu");
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="estilos.css">
+if (menuToggle) {
+  menuToggle.addEventListener("click", () => {
+    navMenu.classList.toggle("active");
+  });
+}
 
-  <!-- Fuente -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
+/* Cerrar menú al hacer click en un enlace (móvil) */
+const navLinks = document.querySelectorAll("#nav-menu a");
 
-<body>
-
-  <!-- ================= HEADER ================= -->
-  <header class="header">
-    <div class="container header-content">
-
-      <!-- Logo principal -->
-      <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo">
-
-      <div class="header-text">
-        <h1>I’Dalias</h1>
-        <p>Carteras tejidas a mano con elegancia ✨</p>
-      </div>
-
-    </div>
-  </header>
+navLinks.forEach(link => {
+  link.addEventListener("click", () => {
+    navMenu.classList.remove("active");
+  });
+});
 
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="container hero-content">
-      <h2>Accesorios hechos con amor y detalle</h2>
-      <p>
-        Descubre carteras únicas, tejidas a mano, diseñadas para resaltar tu estilo
-        con un toque artesanal y sofisticado.
-      </p>
-    </div>
-  </section>
+/* =========================
+   2️⃣ SCROLL SUAVE
+   ========================= */
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    const target = document.querySelector(this.getAttribute("href"));
+
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  });
+});
 
 
-  <!-- ================= FILTROS ================= -->
-  <section class="filtros container">
-    <button class="filtro-btn activo" data-categoria="todos">Todas</button>
-    <button class="filtro-btn" data-categoria="clasicas">Clásicas</button>
-    <button class="filtro-btn" data-categoria="coloridas">Coloridas</button>
-  </section>
+/* =========================
+   3️⃣ HEADER CAMBIO EN SCROLL
+   ========================= */
+
+const header = document.querySelector("header");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    header.classList.add("scrolled");
+  } else {
+    header.classList.remove("scrolled");
+  }
+});
 
 
-  <!-- ================= PRODUCTOS ================= -->
-  <main class="container">
-    <div id="contenedor-productos" class="grid-productos"></div>
-  </main>
+/* =========================
+   4️⃣ ANIMACIONES AL HACER SCROLL
+   ========================= */
+
+const observer = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  },
+  {
+    threshold: 0.15
+  }
+);
+
+document.querySelectorAll(".animate").forEach(el => observer.observe(el));
 
 
-  <!-- ================= BENEFICIOS ================= -->
-  <section class="beneficios">
-    <div class="container beneficios-grid">
+/* =========================
+   5️⃣ VALIDACIÓN FORMULARIO
+   ========================= */
 
-      <div class="beneficio">
-        <h3>🧶 Hecho a mano</h3>
-        <p>Cada cartera es tejida cuidadosamente con atención al detalle.</p>
-      </div>
+const form = document.querySelector("#contact-form");
 
-      <div class="beneficio">
-        <h3>✨ Diseño único</h3>
-        <p>Piezas exclusivas que resaltan tu estilo personal.</p>
-      </div>
+if (form) {
+  form.addEventListener("submit", e => {
+    e.preventDefault();
 
-      <div class="beneficio">
-        <h3>💖 Calidad premium</h3>
-        <p>Materiales seleccionados para durabilidad y elegancia.</p>
-      </div>
+    const name = document.querySelector("#name").value.trim();
+    const phone = document.querySelector("#phone").value.trim();
+    const message = document.querySelector("#message").value.trim();
 
-    </div>
-  </section>
+    if (name === "" || phone === "" || message === "") {
+      alert("Por favor completa todos los campos.");
+      return;
+    }
 
+    if (!/^[0-9+ ]+$/.test(phone)) {
+      alert("Ingresa un número de teléfono válido.");
+      return;
+    }
 
-  <!-- ================= SOBRE LA MARCA ================= -->
-  <section class="sobre">
-    <div class="container sobre-content">
-      <h2>Sobre I’Dalias</h2>
-      <p>
-        I’Dalias nace del amor por lo artesanal y el deseo de crear piezas únicas que acompañen tu estilo.
-        Cada cartera está tejida a mano con dedicación, buscando transmitir elegancia, calidez y autenticidad.
-      </p>
-    </div>
-  </section>
+    alert("Mensaje enviado correctamente ✅");
+    form.reset();
+  });
+}
 
 
-  <!-- ================= FOOTER ================= -->
-  <footer class="footer">
-    <div class="container footer-content">
+/* =========================
+   6️⃣ BOTÓN WHATSAPP DINÁMICO
+   ========================= */
 
-      <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-footer">
+const whatsappBtn = document.querySelector("#whatsapp-btn");
 
-      <p>© 2026 I’Dalias</p>
-      <p>Hecho a mano en Perú 🇵🇪</p>
-      <p>Pedidos por WhatsApp 💬</p>
+if (whatsappBtn) {
+  whatsappBtn.addEventListener("click", () => {
+    const phoneNumber = "51994098296"; // Cambia si deseas
+    const message = encodeURIComponent(
+      "Hola, quiero información sobre el servicio de movilidad ejecutiva."
+    );
 
-    </div>
-  </footer>
-
-
-  <!-- ================= BOTÓN WHATSAPP ================= -->
-  <a 
-    href="https://wa.me/51994098296?text=Hola%20quiero%20información%20sobre%20las%20carteras%20I’Dalias"
-    class="whatsapp-float"
-    target="_blank"
-  >
-    💬
-  </a>
+    const url = `https://wa.me/${phoneNumber}?text=${message}`;
+    window.open(url, "_blank");
+  });
+}
 
 
-  <!-- JS -->
-  <script src="script.js"></script>
+/* =========================
+   7️⃣ CAMBIO AUTOMÁTICO DE LOGO (OPCIONAL)
+   Si el header tiene fondo oscuro o claro
+   ========================= */
 
-</body>
-</html>
+const logo = document.querySelector("#logo");
+
+function updateLogo() {
+  if (!logo) return;
+
+  if (window.scrollY > 50) {
+    logo.src = "img/logo-negro.jpg"; // cuando fondo es claro
+  } else {
+    logo.src = "img/logo-blanco.jpg"; // cuando fondo es oscuro
+  }
+}
+
+window.addEventListener("scroll", updateLogo);
+
+
+/* =========================
+   8️⃣ BOTÓN VOLVER ARRIBA
+   ========================= */
+
+const backToTop = document.querySelector("#back-to-top");
+
+if (backToTop) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      backToTop.classList.add("visible");
+    } else {
+      backToTop.classList.remove("visible");
+    }
+  });
+
+  backToTop.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+
+
+/* =========================
+   9️⃣ PRELOADER (SI LO USAS)
+   ========================= */
+
+window.addEventListener("load", () => {
+  const preloader = document.querySelector("#preloader");
+  if (preloader) {
+    preloader.style.opacity = "0";
+    setTimeout(() => {
+      preloader.style.display = "none";
+    }, 500);
+  }
+});
+
+
+/* =========================
+   🔟 CONSOLA DE CONTROL
+   ========================= */
+
+console.log("✅ Script cargado correctamente");
+console.log("🚗 Sistema de web ejecutiva activo");
