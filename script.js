@@ -2,10 +2,12 @@
 // CONFIGURACIÓN GENERAL
 // ============================
 
-const WHATSAPP_NUMBER = "51994098296";
-
-const MENSAJE_BASE =
-  "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:";
+const CONFIG = {
+  whatsappNumber: "51994098296",
+  moneda: "S/",
+  mensajeBase:
+    "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:"
+};
 
 
 // ============================
@@ -62,6 +64,13 @@ const productos = [
 
 
 // ============================
+// ESTADO GLOBAL
+// ============================
+
+let productosActivos = [...productos];
+
+
+// ============================
 // REFERENCIAS DOM
 // ============================
 
@@ -70,12 +79,56 @@ const botonesFiltro = document.querySelectorAll(".filtro-btn");
 
 
 // ============================
-// CREAR LINK WHATSAPP
+// UTILIDADES
 // ============================
 
+function formatearPrecio(precio) {
+  return `${CONFIG.moneda} ${precio.toFixed(2)}`;
+}
+
 function crearLinkWhatsApp(producto) {
-  const mensaje = `${MENSAJE_BASE} ${producto.nombre} (S/ ${producto.precio})`;
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+  const mensaje = `
+${CONFIG.mensajeBase}
+
+👜 Modelo: ${producto.nombre}
+💰 Precio: ${formatearPrecio(producto.precio)}
+
+¿Está disponible? ✨
+  `.trim();
+
+  return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(
+    mensaje
+  )}`;
+}
+
+
+// ============================
+// CREAR CARD
+// ============================
+
+function crearCard(producto) {
+  const card = document.createElement("article");
+  card.className = "producto-card";
+
+  card.innerHTML = `
+    <div class="producto-img-container">
+      <img src="${producto.imagen}" alt="${producto.nombre}">
+    </div>
+
+    <div class="producto-info">
+      <h3>${producto.nombre}</h3>
+      <p class="descripcion">${producto.descripcion}</p>
+      <p class="precio">${formatearPrecio(producto.precio)}</p>
+
+      <a href="${crearLinkWhatsApp(producto)}"
+         target="_blank"
+         class="btn-comprar">
+        Comprar por WhatsApp
+      </a>
+    </div>
+  `;
+
+  return card;
 }
 
 
@@ -88,22 +141,13 @@ function renderProductos(lista) {
 
   contenedor.innerHTML = "";
 
+  const fragment = document.createDocumentFragment();
+
   lista.forEach(producto => {
-    const card = document.createElement("div");
-    card.classList.add("producto-card");
-
-    card.innerHTML = `
-      <img src="${producto.imagen}" alt="${producto.nombre}">
-      <h3>${producto.nombre}</h3>
-      <p class="descripcion">${producto.descripcion}</p>
-      <p class="precio">S/ ${producto.precio}</p>
-      <a href="${crearLinkWhatsApp(producto)}" target="_blank" class="btn-comprar">
-        Comprar por WhatsApp
-      </a>
-    `;
-
-    contenedor.appendChild(card);
+    fragment.appendChild(crearCard(producto));
   });
+
+  contenedor.appendChild(fragment);
 
   activarAnimaciones();
 }
@@ -113,38 +157,44 @@ function renderProductos(lista) {
 // FILTROS
 // ============================
 
-botonesFiltro.forEach(boton => {
-  boton.addEventListener("click", () => {
-    const categoria = boton.dataset.categoria;
+function activarFiltros() {
+  botonesFiltro.forEach(boton => {
+    boton.addEventListener("click", () => {
+      const categoria = boton.dataset.categoria;
 
-    if (categoria === "todos") {
-      renderProductos(productos);
-      return;
-    }
+      // actualizar estado visual
+      botonesFiltro.forEach(b => b.classList.remove("activo"));
+      boton.classList.add("activo");
 
-    const filtrados = productos.filter(
-      producto => producto.categoria === categoria
-    );
+      productosActivos =
+        categoria === "todos"
+          ? [...productos]
+          : productos.filter(p => p.categoria === categoria);
 
-    renderProductos(filtrados);
+      renderProductos(productosActivos);
+    });
   });
-});
+}
 
 
 // ============================
-// ANIMACIONES
+// ANIMACIONES SCROLL
 // ============================
 
 function activarAnimaciones() {
   const cards = document.querySelectorAll(".producto-card");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-      }
-    });
-  });
+  const observer = new IntersectionObserver(
+    entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
 
   cards.forEach(card => observer.observe(card));
 }
@@ -156,4 +206,5 @@ function activarAnimaciones() {
 
 document.addEventListener("DOMContentLoaded", () => {
   renderProductos(productos);
+  activarFiltros();
 });
