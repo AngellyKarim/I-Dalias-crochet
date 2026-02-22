@@ -1,59 +1,118 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>I'Dalias | Tienda Oficial</title>
-<link rel="stylesheet" href="estilos.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I'Dalias | Carteras tejidas a crochet</title>
 
+  <!-- SEO básico -->
+  <meta name="description" content="Carteras tejidas a crochet hechas a mano. Diseños únicos y personalizados.">
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="estilos.css">
+</head>
 <body>
 
-<header class="header">
-    <h1>I'Dalias</h1>
-    <nav>
-        <a href="#">Inicio</a>
-        <a href="#catalogo">Catálogo</a>
-        <a href="https://wa.me/qr/XIM3U3CSOZ3BP1" target="_blank">Contacto</a>
-    </nav>
-</header>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="contenedor">
+      <h1 class="logo">I'Dalias</h1>
 
-<section class="hero">
-    <div>
-        <h2>Carteras tejidas a mano</h2>
-        <p>Diseños exclusivos hechos con amor 🧶</p>
-        <a class="btn" href="#catalogo">Ver colección</a>
+      <nav class="nav">
+        <a href="#productos">Productos</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
     </div>
-</section>
+  </header>
 
-<section id="catalogo" class="catalogo">
-    <h2>Nuestra colección</h2>
-
-    <div class="filtros">
-        <button onclick="filtrar('todos')">Todos</button>
-        <button onclick="filtrar('clasica')">Clásicas</button>
-        <button onclick="filtrar('colorida')">Coloridas</button>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Carteras tejidas a mano 🧶</h2>
+      <p>Diseños exclusivos hechos con amor y dedicación</p>
+      <a href="#productos" class="btn">Ver catálogo</a>
     </div>
+  </section>
 
-    <div id="productos" class="grid"></div>
-</section>
+  <!-- PRODUCTOS -->
+  <section id="productos" class="productos contenedor">
+    <h2 class="titulo-seccion">Nuestros productos</h2>
 
-<div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="cerrar" onclick="cerrarModal()">×</span>
-        <img id="modal-img">
-        <h3 id="modal-nombre"></h3>
-        <p id="modal-precio"></p>
-        <a class="btn" href="https://wa.me/qr/XIM3U3CSOZ3BP1" target="_blank">
-            Comprar por WhatsApp
-        </a>
+    <div class="grid-productos">
+
+      <div class="card">
+        <img src="img/cartera1.jpg" alt="Cartera negra">
+        <h3>Cartera Negra Elegante</h3>
+        <p class="precio">S/ 80</p>
+        <button class="btn-comprar" data-producto="Cartera Negra Elegante">Comprar</button>
+      </div>
+
+      <div class="card">
+        <img src="img/cartera2.jpg" alt="Cartera rosa">
+        <h3>Cartera Rosa Mini</h3>
+        <p class="precio">S/ 65</p>
+        <button class="btn-comprar" data-producto="Cartera Rosa Mini">Comprar</button>
+      </div>
+
+      <div class="card">
+        <img src="img/cartera3.jpg" alt="Cartera multicolor">
+        <h3>Cartera Multicolor</h3>
+        <p class="precio">S/ 75</p>
+        <button class="btn-comprar" data-producto="Cartera Multicolor">Comprar</button>
+      </div>
+
+      <div class="card">
+        <img src="img/cartera4.jpg" alt="Cartera beige">
+        <h3>Cartera Beige</h3>
+        <p class="precio">S/ 70</p>
+        <button class="btn-comprar" data-producto="Cartera Beige">Comprar</button>
+      </div>
+
+      <div class="card">
+        <img src="img/cartera5.jpg" alt="Cartera amarilla">
+        <h3>Cartera Amarilla</h3>
+        <p class="precio">S/ 70</p>
+        <button class="btn-comprar" data-producto="Cartera Amarilla">Comprar</button>
+      </div>
+
     </div>
-</div>
+  </section>
 
-<footer>
-    <p>© 2026 I'Dalias | Hecho a mano con amor</p>
-</footer>
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="nosotros">
+    <div class="contenedor">
+      <h2 class="titulo-seccion">Sobre I'Dalias</h2>
+      <p>
+        I'Dalias es una marca de carteras tejidas a crochet hechas a mano.
+        Nuestro objetivo es ofrecer accesorios únicos, duraderos y con estilo,
+        resaltando la artesanía y el trabajo manual.
+      </p>
+    </div>
+  </section>
 
-<script src="script.js"></script>
+  <!-- CONTACTO -->
+  <section id="contacto" class="contacto">
+    <div class="contenedor">
+      <h2 class="titulo-seccion">Haz tu pedido</h2>
+      <p>Puedes escribirnos directamente por WhatsApp y coordinamos tu compra 💬</p>
+
+      <a href="https://wa.me/994098296" class="btn btn-whatsapp">
+        Escribir por WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 I'Dalias — Hecho con 💛</p>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script src="script.js"></script>
+
 </body>
-</html>
+    </html>
