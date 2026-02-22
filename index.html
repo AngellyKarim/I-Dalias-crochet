@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <!-- META BÁSICOS -->
+  <!-- META -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>I'Dalias Crochet | Carteras tejidas a mano</title>
-  <meta name="description" content="Carteras tejidas a mano, elegantes y exclusivas. Diseños artesanales con estilo moderno. Compra por WhatsApp.">
+  <meta name="description" content="Carteras tejidas a mano elegantes y exclusivas. Compra por WhatsApp.">
 
   <!-- FAVICON -->
   <link rel="icon" href="idalias-icono.jpg">
 
-  <!-- ESTILOS -->
+  <!-- CSS -->
   <link rel="stylesheet" href="estilos.css">
 
-  <!-- FUENTES -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <!-- FUENTE -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
@@ -23,9 +22,8 @@
   <!-- ================= HEADER ================= -->
   <header class="header">
     <div class="container header-inner">
-      <div class="logo-container">
-        <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-header">
-      </div>
+
+      <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-header">
 
       <nav class="nav">
         <a href="#inicio">Inicio</a>
@@ -33,12 +31,14 @@
         <a href="#beneficios">Beneficios</a>
         <a href="#contacto">Contacto</a>
       </nav>
+
     </div>
   </header>
 
   <!-- ================= HERO ================= -->
   <section id="inicio" class="hero">
     <div class="container hero-content">
+
       <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-hero">
 
       <h1 class="hero-title">
@@ -49,24 +49,21 @@
         Carteras artesanales elegantes, exclusivas y hechas con amor.
       </p>
 
-      <div class="hero-buttons">
-        <button id="btn-ver" class="btn-primary">
-          Ver colección
-        </button>
+      <button id="btn-ver" class="btn-primary">
+        Ver colección
+      </button>
 
-        <a href="#beneficios" class="btn-outline">
-          Conoce la marca
-        </a>
-      </div>
     </div>
   </section>
 
   <!-- ================= FILTROS ================= -->
   <section class="filtros-section">
     <div class="container filtros">
+
       <button class="filtro-btn activo" data-categoria="todos">Todas</button>
       <button class="filtro-btn" data-categoria="clasicas">Clásicas</button>
       <button class="filtro-btn" data-categoria="coloridas">Coloridas</button>
+
     </div>
   </section>
 
@@ -74,11 +71,12 @@
   <section id="productos" class="productos-section">
     <div class="container">
 
-      <header class="section-header">
+      <div class="section-header">
         <h2>Nuestra colección</h2>
-        <p>Cada pieza es única, tejida con dedicación artesanal.</p>
-      </header>
+        <p>Cada pieza es única y tejida con dedicación artesanal.</p>
+      </div>
 
+      <!-- CONTENEDOR QUE USA EL JS -->
       <div id="contenedor-productos" class="productos-grid"></div>
 
     </div>
@@ -86,53 +84,26 @@
 
   <!-- ================= BENEFICIOS ================= -->
   <section id="beneficios" class="beneficios-section">
-    <div class="container">
+    <div class="container beneficios-grid">
 
-      <header class="section-header">
-        <h2>¿Por qué elegir I'Dalias?</h2>
-        <p>Más que una cartera, llevas una pieza artesanal.</p>
-      </header>
-
-      <div class="beneficios-grid">
-
-        <div class="beneficio">
-          <h3>Hecho a mano</h3>
-          <p>Cada cartera es tejida cuidadosamente, punto por punto.</p>
-        </div>
-
-        <div class="beneficio">
-          <h3>Diseño exclusivo</h3>
-          <p>No producimos en masa, cada modelo es especial.</p>
-        </div>
-
-        <div class="beneficio">
-          <h3>Materiales premium</h3>
-          <p>Hilos resistentes y duraderos para acompañarte por años.</p>
-        </div>
-
-        <div class="beneficio">
-          <h3>Compra directa</h3>
-          <p>Comunicación rápida y personalizada por WhatsApp.</p>
-        </div>
-
+      <div class="beneficio">
+        <h3>Hecho a mano</h3>
+        <p>Cada cartera es tejida cuidadosamente, punto por punto.</p>
       </div>
-    </div>
-  </section>
 
-  <!-- ================= GALERÍA ================= -->
-  <section class="galeria-section">
-    <div class="container">
+      <div class="beneficio">
+        <h3>Diseño exclusivo</h3>
+        <p>No producimos en masa, cada modelo es especial.</p>
+      </div>
 
-      <header class="section-header">
-        <h2>Detalles artesanales</h2>
-        <p>La textura del crochet hace cada pieza especial.</p>
-      </header>
+      <div class="beneficio">
+        <h3>Materiales premium</h3>
+        <p>Hilos resistentes y duraderos para acompañarte por años.</p>
+      </div>
 
-      <div class="galeria-grid">
-        <img src="cartera1.jpg" alt="Detalle tejido">
-        <img src="cartera2.jpg" alt="Detalle tejido">
-        <img src="cartera3.jpg" alt="Detalle tejido">
-        <img src="cartera4.jpg" alt="Detalle tejido">
+      <div class="beneficio">
+        <h3>Compra directa</h3>
+        <p>Comunicación rápida y personalizada por WhatsApp.</p>
       </div>
 
     </div>
@@ -141,11 +112,14 @@
   <!-- ================= CTA ================= -->
   <section class="cta-section">
     <div class="container cta-content">
+
       <h2>Encuentra la cartera perfecta para tu estilo</h2>
       <p>Escríbenos y te ayudamos a elegir la ideal.</p>
+
       <a id="cta-whatsapp" class="btn-primary" target="_blank">
         Escribir por WhatsApp
       </a>
+
     </div>
   </section>
 
@@ -153,22 +127,17 @@
   <section id="contacto" class="contacto-section">
     <div class="container contacto-content">
 
-      <div class="contacto-texto">
-        <h2>Contacto</h2>
-        <p>¿Tienes dudas o quieres personalizar tu cartera?  
-        Escríbenos y te respondemos rápidamente.</p>
-      </div>
+      <h2>Contacto</h2>
+      <p>¿Tienes dudas? Escríbenos y te respondemos rápido.</p>
 
-      <div class="contacto-botones">
-        <a id="contacto-whatsapp" class="btn-primary" target="_blank">
-          WhatsApp
-        </a>
-      </div>
+      <a id="contacto-whatsapp" class="btn-primary" target="_blank">
+        WhatsApp
+      </a>
 
     </div>
   </section>
 
-  <!-- ================= WHATSAPP FLOTANTE ================= -->
+  <!-- ================= BOTÓN WHATSAPP FLOTANTE ================= -->
   <a id="whatsapp-fijo" class="whatsapp-fijo" target="_blank">
     WhatsApp
   </a>
@@ -177,25 +146,14 @@
   <footer class="footer">
     <div class="container footer-content">
 
-      <div class="footer-brand">
-        <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-footer">
-        <p>Diseños tejidos a mano con estilo y dedicación.</p>
-      </div>
+      <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-footer">
 
-      <div class="footer-links">
-        <a href="#inicio">Inicio</a>
-        <a href="#productos">Colección</a>
-        <a href="#beneficios">Beneficios</a>
-      </div>
-
-      <div class="footer-copy">
-        <p>© 2026 I'Dalias Crochet</p>
-      </div>
+      <p>© 2026 I'Dalias Crochet — Diseños hechos con amor</p>
 
     </div>
   </footer>
 
-  <!-- ================= SCRIPT ================= -->
+  <!-- JS (SIEMPRE AL FINAL) -->
   <script src="script.js"></script>
 
 </body>
