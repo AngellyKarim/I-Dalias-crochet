@@ -1,210 +1,127 @@
-// ============================
-// CONFIGURACIÓN GENERAL
-// ============================
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-const CONFIG = {
-  whatsappNumber: "51994098296",
-  moneda: "S/",
-  mensajeBase:
-    "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:"
-};
+  <title>I’Dalias | Carteras Tejidas a Mano</title>
+  <meta name="description" content="Carteras tejidas a mano en Perú. Diseños únicos, elegantes y artesanales.">
 
+  <!-- Favicon -->
+  <link rel="icon" href="idalias-icono.jpg">
 
-// ============================
-// LISTA DE PRODUCTOS
-// ============================
+  <!-- CSS -->
+  <link rel="stylesheet" href="estilos.css">
 
-const productos = [
-  {
-    id: 1,
-    nombre: "Valentina",
-    precio: 219,
-    imagen: "cartera1.jpg",
-    categoria: "clasicas",
-    descripcion:
-      "Elegante y atemporal, tejida a mano para un estilo sofisticado."
-  },
-  {
-    id: 2,
-    nombre: "Lía Mini",
-    precio: 169,
-    imagen: "cartera2.jpg",
-    categoria: "clasicas",
-    descripcion:
-      "Pequeña y encantadora, perfecta para llevar lo esencial con estilo."
-  },
-  {
-    id: 3,
-    nombre: "Alma Bohemia",
-    precio: 239,
-    imagen: "cartera3.jpg",
-    categoria: "coloridas",
-    descripcion:
-      "Diseño vibrante que destaca por su esencia artesanal."
-  },
-  {
-    id: 4,
-    nombre: "Clara",
-    precio: 199,
-    imagen: "cartera4.jpg",
-    categoria: "clasicas",
-    descripcion:
-      "Minimalista y versátil, combina con cualquier outfit."
-  },
-  {
-    id: 5,
-    nombre: "Mía Sol",
-    precio: 189,
-    imagen: "cartera5.jpg",
-    categoria: "coloridas",
-    descripcion:
-      "Alegre y luminosa, ideal para darle vida a tu estilo."
-  }
-];
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
 
+<body>
 
-// ============================
-// ESTADO GLOBAL
-// ============================
+  <!-- ================= HEADER ================= -->
+  <header class="header">
+    <div class="container header-content">
 
-let productosActivos = [...productos];
+      <!-- Logo principal -->
+      <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo">
 
+      <div class="header-text">
+        <h1>I’Dalias</h1>
+        <p>Carteras tejidas a mano con elegancia ✨</p>
+      </div>
 
-// ============================
-// REFERENCIAS DOM
-// ============================
-
-const contenedor = document.getElementById("contenedor-productos");
-const botonesFiltro = document.querySelectorAll(".filtro-btn");
-
-
-// ============================
-// UTILIDADES
-// ============================
-
-function formatearPrecio(precio) {
-  return `${CONFIG.moneda} ${precio.toFixed(2)}`;
-}
-
-function crearLinkWhatsApp(producto) {
-  const mensaje = `
-${CONFIG.mensajeBase}
-
-👜 Modelo: ${producto.nombre}
-💰 Precio: ${formatearPrecio(producto.precio)}
-
-¿Está disponible? ✨
-  `.trim();
-
-  return `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    mensaje
-  )}`;
-}
-
-
-// ============================
-// CREAR CARD
-// ============================
-
-function crearCard(producto) {
-  const card = document.createElement("article");
-  card.className = "producto-card";
-
-  card.innerHTML = `
-    <div class="producto-img-container">
-      <img src="${producto.imagen}" alt="${producto.nombre}">
     </div>
+  </header>
 
-    <div class="producto-info">
-      <h3>${producto.nombre}</h3>
-      <p class="descripcion">${producto.descripcion}</p>
-      <p class="precio">${formatearPrecio(producto.precio)}</p>
 
-      <a href="${crearLinkWhatsApp(producto)}"
-         target="_blank"
-         class="btn-comprar">
-        Comprar por WhatsApp
-      </a>
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h2>Accesorios hechos con amor y detalle</h2>
+      <p>
+        Descubre carteras únicas, tejidas a mano, diseñadas para resaltar tu estilo
+        con un toque artesanal y sofisticado.
+      </p>
     </div>
-  `;
-
-  return card;
-}
+  </section>
 
 
-// ============================
-// RENDER PRODUCTOS
-// ============================
-
-function renderProductos(lista) {
-  if (!contenedor) return;
-
-  contenedor.innerHTML = "";
-
-  const fragment = document.createDocumentFragment();
-
-  lista.forEach(producto => {
-    fragment.appendChild(crearCard(producto));
-  });
-
-  contenedor.appendChild(fragment);
-
-  activarAnimaciones();
-}
+  <!-- ================= FILTROS ================= -->
+  <section class="filtros container">
+    <button class="filtro-btn activo" data-categoria="todos">Todas</button>
+    <button class="filtro-btn" data-categoria="clasicas">Clásicas</button>
+    <button class="filtro-btn" data-categoria="coloridas">Coloridas</button>
+  </section>
 
 
-// ============================
-// FILTROS
-// ============================
-
-function activarFiltros() {
-  botonesFiltro.forEach(boton => {
-    boton.addEventListener("click", () => {
-      const categoria = boton.dataset.categoria;
-
-      // actualizar estado visual
-      botonesFiltro.forEach(b => b.classList.remove("activo"));
-      boton.classList.add("activo");
-
-      productosActivos =
-        categoria === "todos"
-          ? [...productos]
-          : productos.filter(p => p.categoria === categoria);
-
-      renderProductos(productosActivos);
-    });
-  });
-}
+  <!-- ================= PRODUCTOS ================= -->
+  <main class="container">
+    <div id="contenedor-productos" class="grid-productos"></div>
+  </main>
 
 
-// ============================
-// ANIMACIONES SCROLL
-// ============================
+  <!-- ================= BENEFICIOS ================= -->
+  <section class="beneficios">
+    <div class="container beneficios-grid">
 
-function activarAnimaciones() {
-  const cards = document.querySelectorAll(".producto-card");
+      <div class="beneficio">
+        <h3>🧶 Hecho a mano</h3>
+        <p>Cada cartera es tejida cuidadosamente con atención al detalle.</p>
+      </div>
 
-  const observer = new IntersectionObserver(
-    entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.2 }
-  );
+      <div class="beneficio">
+        <h3>✨ Diseño único</h3>
+        <p>Piezas exclusivas que resaltan tu estilo personal.</p>
+      </div>
 
-  cards.forEach(card => observer.observe(card));
-}
+      <div class="beneficio">
+        <h3>💖 Calidad premium</h3>
+        <p>Materiales seleccionados para durabilidad y elegancia.</p>
+      </div>
+
+    </div>
+  </section>
 
 
-// ============================
-// INICIALIZAR
-// ============================
+  <!-- ================= SOBRE LA MARCA ================= -->
+  <section class="sobre">
+    <div class="container sobre-content">
+      <h2>Sobre I’Dalias</h2>
+      <p>
+        I’Dalias nace del amor por lo artesanal y el deseo de crear piezas únicas que acompañen tu estilo.
+        Cada cartera está tejida a mano con dedicación, buscando transmitir elegancia, calidez y autenticidad.
+      </p>
+    </div>
+  </section>
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderProductos(productos);
-  activarFiltros();
-});
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-content">
+
+      <img src="idalias-logo.jpg" alt="Logo I'Dalias" class="logo-footer">
+
+      <p>© 2026 I’Dalias</p>
+      <p>Hecho a mano en Perú 🇵🇪</p>
+      <p>Pedidos por WhatsApp 💬</p>
+
+    </div>
+  </footer>
+
+
+  <!-- ================= BOTÓN WHATSAPP ================= -->
+  <a 
+    href="https://wa.me/51994098296?text=Hola%20quiero%20información%20sobre%20las%20carteras%20I’Dalias"
+    class="whatsapp-float"
+    target="_blank"
+  >
+    💬
+  </a>
+
+
+  <!-- JS -->
+  <script src="script.js"></script>
+
+</body>
+</html>
