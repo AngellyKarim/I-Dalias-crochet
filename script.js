@@ -1,53 +1,91 @@
-// ====== PRODUCTOS ======
+// ============================
+// CONFIGURACIÓN GENERAL
+// ============================
+
+const WHATSAPP_NUMBER = "51994098296";
+
+const MENSAJE_BASE =
+  "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:";
+
+
+// ============================
+// LISTA DE PRODUCTOS
+// ============================
+
 const productos = [
   {
     id: 1,
-    nombre: "Cartera Negra Elegante",
+    nombre: "Valentina",
     precio: 219,
     imagen: "cartera1.jpg",
     categoria: "clasicas",
-    descripcion: "Elegancia atemporal tejida a mano, ideal para cualquier ocasión."
+    descripcion:
+      "Elegante y atemporal, tejida a mano para un estilo sofisticado."
   },
   {
     id: 2,
-    nombre: "Cartera Rosa Mini",
+    nombre: "Lía Mini",
     precio: 169,
     imagen: "cartera2.jpg",
     categoria: "clasicas",
-    descripcion: "Pequeña y encantadora, perfecta para llevar lo esencial."
+    descripcion:
+      "Pequeña y encantadora, perfecta para llevar lo esencial con estilo."
   },
   {
     id: 3,
-    nombre: "Cartera Multicolor",
+    nombre: "Alma Bohemia",
     precio: 239,
     imagen: "cartera3.jpg",
     categoria: "coloridas",
-    descripcion: "Diseño vibrante y único que resalta el trabajo artesanal."
+    descripcion:
+      "Diseño vibrante que destaca por su esencia artesanal."
   },
   {
     id: 4,
-    nombre: "Cartera Beige Minimal",
+    nombre: "Clara",
     precio: 199,
     imagen: "cartera4.jpg",
     categoria: "clasicas",
-    descripcion: "Minimalista y versátil, combina con todo."
+    descripcion:
+      "Minimalista y versátil, combina con cualquier outfit."
   },
   {
     id: 5,
-    nombre: "Cartera Amarilla",
+    nombre: "Mía Sol",
     precio: 189,
     imagen: "cartera5.jpg",
     categoria: "coloridas",
-    descripcion: "Alegre y moderna, ideal para destacar tu estilo."
+    descripcion:
+      "Alegre y luminosa, ideal para darle vida a tu estilo."
   }
 ];
 
-// ====== CONTENEDOR ======
+
+// ============================
+// REFERENCIAS DOM
+// ============================
+
 const contenedor = document.getElementById("contenedor-productos");
 const botonesFiltro = document.querySelectorAll(".filtro-btn");
 
-// ====== RENDER PRODUCTOS ======
+
+// ============================
+// CREAR LINK WHATSAPP
+// ============================
+
+function crearLinkWhatsApp(producto) {
+  const mensaje = `${MENSAJE_BASE} ${producto.nombre} (S/ ${producto.precio})`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
+}
+
+
+// ============================
+// RENDER PRODUCTOS
+// ============================
+
 function renderProductos(lista) {
+  if (!contenedor) return;
+
   contenedor.innerHTML = "";
 
   lista.forEach(producto => {
@@ -59,58 +97,63 @@ function renderProductos(lista) {
       <h3>${producto.nombre}</h3>
       <p class="descripcion">${producto.descripcion}</p>
       <p class="precio">S/ ${producto.precio}</p>
-      <button class="btn-comprar" data-id="${producto.id}">
+      <a href="${crearLinkWhatsApp(producto)}" target="_blank" class="btn-comprar">
         Comprar por WhatsApp
-      </button>
+      </a>
     `;
 
     contenedor.appendChild(card);
   });
+
+  activarAnimaciones();
 }
 
-// ====== FILTROS ======
+
+// ============================
+// FILTROS
+// ============================
+
 botonesFiltro.forEach(boton => {
   boton.addEventListener("click", () => {
     const categoria = boton.dataset.categoria;
 
     if (categoria === "todos") {
       renderProductos(productos);
-    } else {
-      const filtrados = productos.filter(
-        p => p.categoria === categoria
-      );
-      renderProductos(filtrados);
+      return;
     }
+
+    const filtrados = productos.filter(
+      producto => producto.categoria === categoria
+    );
+
+    renderProductos(filtrados);
   });
 });
 
-// ====== WHATSAPP ======
-contenedor.addEventListener("click", e => {
-  if (e.target.classList.contains("btn-comprar")) {
-    const id = e.target.dataset.id;
-    const producto = productos.find(p => p.id == id);
 
-    const mensaje = `Hola, quiero comprar la ${producto.nombre} por S/ ${producto.precio} 🧶`;
+// ============================
+// ANIMACIONES
+// ============================
 
-    const url = `https://wa.me/51994098296?text=${encodeURIComponent(mensaje)}`;
-    window.open(url, "_blank");
-  }
-});
+function activarAnimaciones() {
+  const cards = document.querySelectorAll(".producto-card");
 
-// ====== ANIMACIÓN AL HACER SCROLL ======
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
   });
-});
 
-document.querySelectorAll(".producto-card").forEach(el => {
-  observer.observe(el);
-});
+  cards.forEach(card => observer.observe(card));
+}
 
-// ====== INICIALIZAR ======
+
+// ============================
+// INICIALIZAR
+// ============================
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProductos(productos);
 });
