@@ -1,40 +1,116 @@
-content
-"const productos = [
-    {nombre:""Cartera Negra Elegante"", precio:""S/ 160"", img:""img/cartera1.jpg"", categoria:""clasica""},
-    {nombre:""Cartera Rosa Mini"", precio:""S/ 120"", img:""img/cartera2.jpg"", categoria:""clasica""},
-    {nombre:""Cartera Multicolor"", precio:""S/ 180"", img:""img/cartera3.jpg"", categoria:""colorida""},
-    {nombre:""Cartera Beige"", precio:""S/ 150"", img:""img/cartera4.jpg"", categoria:""clasica""},
-    {nombre:""Cartera Amarilla"", precio:""S/ 140"", img:""img/cartera5.jpg"", categoria:""colorida""},
+// ====== PRODUCTOS ======
+const productos = [
+  {
+    id: 1,
+    nombre: "Cartera Negra Elegante",
+    precio: 219,
+    imagen: "cartera1.jpg",
+    categoria: "clasicas",
+    descripcion: "Elegancia atemporal tejida a mano, ideal para cualquier ocasión."
+  },
+  {
+    id: 2,
+    nombre: "Cartera Rosa Mini",
+    precio: 169,
+    imagen: "cartera2.jpg",
+    categoria: "clasicas",
+    descripcion: "Pequeña y encantadora, perfecta para llevar lo esencial."
+  },
+  {
+    id: 3,
+    nombre: "Cartera Multicolor",
+    precio: 239,
+    imagen: "cartera3.jpg",
+    categoria: "coloridas",
+    descripcion: "Diseño vibrante y único que resalta el trabajo artesanal."
+  },
+  {
+    id: 4,
+    nombre: "Cartera Beige Minimal",
+    precio: 199,
+    imagen: "cartera4.jpg",
+    categoria: "clasicas",
+    descripcion: "Minimalista y versátil, combina con todo."
+  },
+  {
+    id: 5,
+    nombre: "Cartera Amarilla",
+    precio: 189,
+    imagen: "cartera5.jpg",
+    categoria: "coloridas",
+    descripcion: "Alegre y moderna, ideal para destacar tu estilo."
+  }
 ];
 
-const contenedor = document.getElementById(""productos"");
+// ====== CONTENEDOR ======
+const contenedor = document.getElementById("contenedor-productos");
+const botonesFiltro = document.querySelectorAll(".filtro-btn");
 
-function mostrarProductos(lista){
-    contenedor.innerHTML = """";
-    lista.forEach(p=>{
-        contenedor.innerHTML += `
-        <div class=""card"" onclick=""abrirModal('${p.img}','${p.nombre}','${p.precio}')"">
-            <img src=""${p.img}"">
-            <h3>${p.nombre}</h3>
-            <p>${p.precio}</p>
-        </div>`;
-    });
+// ====== RENDER PRODUCTOS ======
+function renderProductos(lista) {
+  contenedor.innerHTML = "";
+
+  lista.forEach(producto => {
+    const card = document.createElement("div");
+    card.classList.add("producto-card");
+
+    card.innerHTML = `
+      <img src="${producto.imagen}" alt="${producto.nombre}">
+      <h3>${producto.nombre}</h3>
+      <p class="descripcion">${producto.descripcion}</p>
+      <p class="precio">S/ ${producto.precio}</p>
+      <button class="btn-comprar" data-id="${producto.id}">
+        Comprar por WhatsApp
+      </button>
+    `;
+
+    contenedor.appendChild(card);
+  });
 }
 
-mostrarProductos(productos);
+// ====== FILTROS ======
+botonesFiltro.forEach(boton => {
+  boton.addEventListener("click", () => {
+    const categoria = boton.dataset.categoria;
 
-function filtrar(cat){
-    if(cat===""todos"") mostrarProductos(productos);
-    else mostrarProductos(productos.filter(p=>p.categoria===cat));
-}
+    if (categoria === "todos") {
+      renderProductos(productos);
+    } else {
+      const filtrados = productos.filter(
+        p => p.categoria === categoria
+      );
+      renderProductos(filtrados);
+    }
+  });
+});
 
-function abrirModal(img,nombre,precio){
-    document.getElementById(""modal"").style.display=""flex"";
-    document.getElementById(""modal-img"").src=img;
-    document.getElementById(""modal-nombre"").textContent=nombre;
-    document.getElementById(""modal-precio"").textContent=precio;
-}
+// ====== WHATSAPP ======
+contenedor.addEventListener("click", e => {
+  if (e.target.classList.contains("btn-comprar")) {
+    const id = e.target.dataset.id;
+    const producto = productos.find(p => p.id == id);
 
-function cerrarModal(){
-    document.getElementById(""modal"").style.display=""none"";
-}"
+    const mensaje = `Hola, quiero comprar la ${producto.nombre} por S/ ${producto.precio} 🧶`;
+
+    const url = `https://wa.me/51994098296?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, "_blank");
+  }
+});
+
+// ====== ANIMACIÓN AL HACER SCROLL ======
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+});
+
+document.querySelectorAll(".producto-card").forEach(el => {
+  observer.observe(el);
+});
+
+// ====== INICIALIZAR ======
+document.addEventListener("DOMContentLoaded", () => {
+  renderProductos(productos);
+});
