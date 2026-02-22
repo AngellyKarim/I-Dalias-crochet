@@ -1,7 +1,20 @@
-const WHATSAPP = "51994098296";
+// ================================
+// CONFIGURACIÓN GENERAL
+// ================================
+
+const WHATSAPP_NUMBER = "51994098296";
+
+const MENSAJE_BASE =
+  "Hola 😊 me encantó esta cartera de I'Dalias y quiero más información:";
+
+
+// ================================
+// LISTA DE PRODUCTOS
+// ================================
 
 const productos = [
   {
+    id: 1,
     nombre: "Valentina",
     precio: 219,
     imagen: "cartera1.jpg",
@@ -9,6 +22,7 @@ const productos = [
     descripcion: "Elegante, fuerte y sofisticada."
   },
   {
+    id: 2,
     nombre: "Lía Mini",
     precio: 169,
     imagen: "cartera2.jpg",
@@ -16,6 +30,7 @@ const productos = [
     descripcion: "Dulce, delicada y moderna."
   },
   {
+    id: 3,
     nombre: "Alma Bohemia",
     precio: 239,
     imagen: "cartera3.jpg",
@@ -23,13 +38,15 @@ const productos = [
     descripcion: "Artística, vibrante y única."
   },
   {
+    id: 4,
     nombre: "Clara",
     precio: 199,
     imagen: "cartera4.jpg",
     categoria: "clasicas",
-    descripcion: "Minimalista y versátil."
+    descripcion: "Minimalista, suave y versátil."
   },
   {
+    id: 5,
     nombre: "Mía Sol",
     precio: 189,
     imagen: "cartera5.jpg",
@@ -38,28 +55,49 @@ const productos = [
   }
 ];
 
-const contenedor = document.getElementById("contenedor-productos");
-const botones = document.querySelectorAll(".filtro-btn");
 
-function linkWhatsApp(prod) {
-  const mensaje = `Hola 😊 quiero info de la cartera ${prod.nombre} (S/ ${prod.precio})`;
-  return `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+// ================================
+// REFERENCIAS DOM
+// ================================
+
+const contenedor = document.getElementById("contenedor-productos");
+const botonesFiltro = document.querySelectorAll(".filtro-btn");
+const btnVer = document.getElementById("btn-ver");
+const whatsappFijo = document.getElementById("whatsapp-fijo");
+const ctaWhatsapp = document.getElementById("cta-whatsapp");
+const contactoWhatsapp = document.getElementById("contacto-whatsapp");
+
+
+// ================================
+// CREAR LINK WHATSAPP
+// ================================
+
+function crearLinkWhatsApp(producto) {
+  const mensaje = `${MENSAJE_BASE} ${producto.nombre} (S/ ${producto.precio})`;
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensaje)}`;
 }
 
-function render(lista) {
+
+// ================================
+// RENDER DE PRODUCTOS
+// ================================
+
+function renderProductos(lista) {
+  if (!contenedor) return;
+
   contenedor.innerHTML = "";
 
-  lista.forEach(prod => {
+  lista.forEach(producto => {
     const card = document.createElement("div");
-    card.className = "producto-card";
+    card.classList.add("producto-card");
 
     card.innerHTML = `
-      <img src="${prod.imagen}">
+      <img src="${producto.imagen}" alt="${producto.nombre}">
       <div class="producto-info">
-        <h3>${prod.nombre}</h3>
-        <p>${prod.descripcion}</p>
-        <p class="precio">S/ ${prod.precio}</p>
-        <a href="${linkWhatsApp(prod)}" target="_blank" class="btn-comprar">
+        <h3>${producto.nombre}</h3>
+        <p>${producto.descripcion}</p>
+        <p class="precio">S/ ${producto.precio}</p>
+        <a href="${crearLinkWhatsApp(producto)}" target="_blank" class="btn-comprar">
           Pedir por WhatsApp
         </a>
       </div>
@@ -67,24 +105,102 @@ function render(lista) {
 
     contenedor.appendChild(card);
   });
+
+  activarAnimaciones();
 }
 
-botones.forEach(btn => {
-  btn.addEventListener("click", () => {
-    botones.forEach(b => b.classList.remove("activo"));
-    btn.classList.add("activo");
 
-    const cat = btn.dataset.categoria;
-    if (cat === "todos") render(productos);
-    else render(productos.filter(p => p.categoria === cat));
+// ================================
+// FILTROS
+// ================================
+
+botonesFiltro.forEach(boton => {
+  boton.addEventListener("click", () => {
+
+    botonesFiltro.forEach(btn => btn.classList.remove("activo"));
+    boton.classList.add("activo");
+
+    const categoria = boton.dataset.categoria;
+
+    if (categoria === "todos") {
+      renderProductos(productos);
+      return;
+    }
+
+    const filtrados = productos.filter(
+      producto => producto.categoria === categoria
+    );
+
+    renderProductos(filtrados);
   });
 });
 
-document.getElementById("btn-ver").addEventListener("click", () => {
-  document.getElementById("productos").scrollIntoView({ behavior: "smooth" });
+
+// ================================
+// SCROLL SUAVE
+// ================================
+
+if (btnVer) {
+  btnVer.addEventListener("click", () => {
+    document.getElementById("productos")
+      .scrollIntoView({ behavior: "smooth" });
+  });
+}
+
+
+// ================================
+// LINKS GENERALES WHATSAPP
+// ================================
+
+const mensajeGeneral =
+  "Hola 😊 quiero información sobre las carteras de I'Dalias";
+
+const linkGeneral =
+  `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(mensajeGeneral)}`;
+
+if (whatsappFijo) whatsappFijo.href = linkGeneral;
+if (ctaWhatsapp) ctaWhatsapp.href = linkGeneral;
+if (contactoWhatsapp) contactoWhatsapp.href = linkGeneral;
+
+
+// ================================
+// ANIMACIÓN APARICIÓN PRODUCTOS
+// ================================
+
+function activarAnimaciones() {
+  const cards = document.querySelectorAll(".producto-card");
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+      }
+    });
+  }, { threshold: 0.2 });
+
+  cards.forEach(card => observer.observe(card));
+}
+
+
+// ================================
+// EFECTO HEADER SCROLL
+// ================================
+
+const header = document.querySelector(".header");
+
+window.addEventListener("scroll", () => {
+  if (window.scrollY > 50) {
+    header.classList.add("header-scroll");
+  } else {
+    header.classList.remove("header-scroll");
+  }
 });
 
-document.getElementById("whatsapp-fijo").href =
-  `https://wa.me/${WHATSAPP}?text=Hola%20quiero%20información%20de%20las%20carteras`;
 
-render(productos);
+// ================================
+// INICIALIZAR
+// ================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderProductos(productos);
+});
